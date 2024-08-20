@@ -3,7 +3,7 @@
     .dotfiles
   </h1>
 
-![Last Commit](https://img.shields.io/github/last-commit/keyywyd/.dotfiles?style=for-the-badge) ![Repo size](https://img.shields.io/github/repo-size/KeyyWYD/.dotfiles?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/keyywyd/.dotfiles?style=for-the-badge) ![Repo size](https://img.shields.io/github/repo-size/keyywyd/.dotfiles?style=for-the-badge)
 </div>
 
 <div align="center">
