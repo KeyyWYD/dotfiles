@@ -1,0 +1,57 @@
+*,
+*::before,
+*::after {
+	font-family: SF Pro Display;
+}
+
+:root {
+  --uc-active-tab-width:   clamp( 50px, 18vw, 220px);
+  --uc-inactive-tab-width: clamp( 50px, 15vw, 200px);
+}
+
+hbox.titlebar-spacer,
+.titlebar-buttonbox-container,
+.tab-close-button,
+#alltabs-button,
+#firefox-view-button,
+#customizableui-special-spring1,
+#customizableui-special-spring2
+{
+  display: none !important;
+}
+
+#tabbrowser-tabs {
+  border: none !important;
+}
+
+#tabs-newtab-button {
+	opacity: 0;
+	transition: 0.2s opacity ease;
+}
+
+#navigator-toolbox {
+	border-bottom: none !important;
+}
+
+#navigator-toolbox:is(:hover, :focus-within, :has([open])) {
+	#tabs-newtab-button {
+		opacity: 1;
+	}
+}
+
+.tabbrowser-tab {
+	transition: min-width 0.3s cubic-bezier(0.270, 0.910, 0.435, 1.280), max-width 0.3s cubic-bezier(0.270, 0.910, 0.435, 1.280), height 0.1s ease !important;
+	height: 100%;
+
+	&[fadein]:not([pinned]) {
+		max-width: var(--uc-inactive-tab-width) !important;
+	}
+
+	&[selected]:not([pinned]) {
+		max-width: var(--uc-active-tab-width) !important;
+	}
+}
+
+:where(#urlbar-background) {
+	border-radius: 10px !important;
+}

@@ -1,0 +1,105 @@
+/* Dynamic Theme */
+@import "colors.css";
+
+@define-color bg alpha(@background, 0.7);
+@define-color fg @on_surface;
+
+* {
+  font-family: SF Pro Display;
+  font-weight: bold;
+  font-size: 1em;
+  color: @fg;
+  border: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+#custom-player,
+#custom-cava,
+#workspaces,
+#window,
+#clock,
+#ctl,
+#telementry {
+  background: @bg;
+}
+
+#workspaces,
+#window,
+#ctl,
+#telementry,
+#clock,
+#custom-player,
+#custom-menu,
+#custom-cava {
+  border-radius: 8px;
+}
+
+#workspaces {
+  border: 0.1em solid;
+  border-color: @primary;
+}
+
+#workspaces button:hover {
+  border-radius: 8px;
+  background: inherit;
+}
+
+#window {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin-right: 3px;
+}
+
+#language {
+  padding-left: 0.5em;
+}
+
+#ctl {
+  border: 0.1em solid;
+  border-color: @primary;
+  padding-right: 0.2em;
+  margin-left: 3px;
+}
+
+#telementry {
+  padding: 0 5px;
+  margin-left: 3px;
+}
+
+#clock,
+#custom-player {
+  padding: 0 10px;
+}
+
+#custom-menu {
+  font-size: 1.2em;
+  padding-right: 0.8em;
+  padding-left: 0.4em;
+  margin-right: 3px;
+  background: @primary;
+  color: @bg;
+}
+
+#custom-battery {
+  font-weight: normal;
+  font-size: 1.2em;
+}
+
+#custom-player {
+  margin-left: 3px;
+  color: @primary;
+}
+
+#custom-cava {
+  padding: 0 5px;
+  margin-left: 3px;
+}
+
+#custom-separator#space {
+  color: @bg;
+}

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+battery="/sys/class/power_supply/BAT*"
+status=$(< $battery/status)
+level=$(< $battery/capacity)
+
+if [[ ("$status" == "Discharging") || ("$status" == "Full") ]]; then
+  if [[ "$level" -le "5" ]]; then
+    printf "􀛪 "
+  elif [[ ("$level" -gt "5") && ("$level" -le "25") ]]; then
+    printf "􀛩 "
+  elif [[ ("$level" -ge "25") && ("$level" -le "50") ]]; then
+    printf "􀺶 "
+  elif [[ ("$level" -ge "50") && ("$level" -le "75") ]]; then
+    printf "􀺸 "
+  elif [[ ("$level" -ge "75") && ("$level" -le "100") ]]; then
+    printf "􀛨 "
+  fi
+else
+  printf "􀢋 "
+fi

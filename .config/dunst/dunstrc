@@ -1,0 +1,44 @@
+# Generated with Matugen
+
+[global]
+layer                               = top
+font                                = SF Pro Display
+follow                              = none
+notification_limit                  = 0
+
+frame_width                         = 0
+width                               = 270
+height                              = 140
+origin                              = top-right
+offset                              = 8x8
+corner_radius                       = 8
+
+min_icon_size                       = 48
+max_icon_size                       = 64
+
+progress_bar                        = true
+progress_bar_height                 = 7
+progress_bar_frame_width            = 1
+progress_bar_min_width              = 150
+progress_bar_max_width              = 170
+
+indicate_hidden                     = false
+separator_height                    = 2
+padding                             = 10
+horizontal_padding                  = 8
+text_icon_padding                   = 16
+gap_size                            = 6
+separator_color                     = "#929095"
+
+sort                                = update
+format                              = "<b>%s</b>\n%b"
+show_indicators                     = false
+mouse_left_click                    = do_action
+title                               = "Dunst"
+class                               = "dunst"
+timeout                             = 5
+
+background                          = "#141314B3"
+foreground                          = "#e5e1e2"
+highlight                           = "#16151b"
+frame_color                         = "#fff"

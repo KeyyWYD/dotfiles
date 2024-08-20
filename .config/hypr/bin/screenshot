@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+# OH MY P-C-C-C-C-C
+
+now="$(date +%Y-%m-%d-%H%M%S)"
+
+_notify () {
+  local icon="$1"
+  local action="$2"
+  local dir="$3"
+  local timeout="$4"
+  local type
+
+  if [ "$action" == "Screenshot" ]; then
+    type="Image"
+  else
+    type="Recording"
+  fi
+
+  notify-send "$action Saved" \
+              "$type saved in '$dir'" \
+              -t "$timeout" -i "$icon"
+}
+
+_recording() {
+  local savedir="$HOME/Pictures/Recordings"
+  [ ! -d "$savedir" ] && mkdir -p "$savedir"
+  local file="$savedir/recording_${now}.mp4"
+
+  # Do Stuff
+
+  _notify "--" "Recording" "${savedir/#$HOME\/}" "1200"
+}
+
+_screenshot() {
+  local mode="$1"
+  local savedir="$HOME/Pictures/Screenshots"
+  [ ! -d "$savedir" ] && mkdir -p "$savedir"
+  local file="$savedir/screenshot_${now}.png"
+
+  if [ "$mode" == "full" ]; then
+    wayshot -f "$file"
+  elif [ "$mode" == "region" ]; then
+    local size="$(slurp -b#00000066 -w 0)"
+    wayshot -f "$file" -s "${size}"
+  fi
+
+  if wl-copy --type image/png < "$file"; then
+    _notify "$file" "Screenshot" "${savedir/#$HOME\/}" "1200"
+    sounds --screenshot
+  fi
+}
+
+case $1 in
+  --region)
+    _screenshot "region"
+    ;;
+  --full)
+    _screenshot "full"
+    ;;
+  *)
+    echo "Usage: $(basename $0) --region | --full"
+    exit 1
+    ;;
+esac

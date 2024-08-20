@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+
+# Lock Instance
+lockfile="/tmp/sys/battery/$(id -u)$(basename ${0}).lock"
+[ ! -d "$(dirname "$lockfile")" ] && mkdir -p "$(dirname "$lockfile")"
+[ -e "${lockfile}" ] && echo "An instance of the script is already running..." && exit 1
+touch "${lockfile}"
+trap 'rm -f "$lockfile"' EXIT
+
+# Check for battery
+is_laptop() {
+  ls /sys/class/power_supply/BAT* &>/dev/null
+}
+
+_notify() {
+  notify-send $1 -u $2 "$3" "$4"
+}
+
+_plugged() {
+  case "$1" in
+    Charging)
+      _notify "-t 3000 -r 24380" "low" "Battery Charging" "Your PC is now charging."
+      sounds --plug
+      ;;
+    Discharging)
+      _notify "-t 3000 -r 24380" "normal" "Battery Discharging" "Your PC is now running on battery power."
+      sounds --unplug
+      ;;
+  esac
+}
+
+_main() {
+  local battery status capacity prev_status
+
+  status_file="$(dirname "$lockfile")/status"
+  battery=$(ls -d /sys/class/power_supply/BAT* | head -n 1)
+  status=$(<"$battery/status")
+  capacity=$(<"$battery/capacity")
+
+  if [[ ! -e "$status_file" || ! -s "$status_file" ]]; then
+    echo "$status" > "$status_file"
+    prev_status="$status"
+  else
+    prev_status=$(<"$status_file")
+  fi
+
+  if [ "$status" != "$prev_status" ]; then
+    _plugged "$status"
+    echo "$status" > "$status_file"
+  fi
+
+  if [[ "$status" == "Discharging" ]]; then
+    if [[ "$capacity" -le "$crit_cap" ]]; then
+      count=$(( mxt > mnt ? mxt : mnt ))
+
+      while [ "$count" -gt 0 ]; do
+        sleep 1
+        status=$(<"$battery/status")
+
+        if [[ "$status" != "Discharging" ]]; then
+          break
+        fi
+
+        _notify "-t 5000 -r 24380" "critical" "Very Low Battery" "Your PC will sleep in $((count / 60)):$((count % 60))."
+
+        if [[ "$notfied" != "vlow" ]]; then
+          sounds --low
+          notfied="vlow"
+        fi
+
+        count=$((count - 1))
+      done
+
+      [[ "$count" -eq 0 ]] && systemctl suspend &>/dev/null &
+    elif [[ "$capacity" -le "$min_cap" && "$notfied" != "low" ]]; then
+      _notify "-t 1200 -r 24380" "critical" "Low Battery" "Your PC will sleep soon unless plugged into a power outlet."
+      sounds --low
+      notfied="low"
+    fi
+  elif [[ "$status" == "Charging" && "$capacity" -ge "$max_cap" && "$notfied" != "full" ]]; then
+    _notify "-t 1200 -r 24380" "low" "Battery Full" "Battery fully charged. Please unplug the charger."
+    notfied="full"
+  else
+    notfied="none"
+  fi
+}
+
+if is_laptop; then
+  max_cap=100
+  min_cap=20
+  crit_cap=5
+  mxt=120  # Max time in seconds
+  mnt=60   # Min time in seconds
+  notfied="none"
+
+  dbus-monitor --system "type='signal',interface='org.freedesktop.DBus.Properties',path='$(upower -e | grep battery)'" 2>/dev/null | while read -r status; do
+    _main
+  done
+else
+  echo "Cannot detect a battery. The system is either not a laptop or there is an issue with the battery."
+  exit 1
+fi

@@ -1,0 +1,29 @@
+# Generated with Matugen
+
+[colors.primary]
+background = '#141314'
+foreground = '#e5e1e2'
+
+[colors.cursor]
+text = '#c9c5cb'
+cursor = '#e5e1e2'
+
+[colors.normal]
+black   = '#4c4c4c'
+red     = '#ac8a8c'
+green   = '#8aac8b'
+yellow  = '#aca98a'
+blue    = '#c9c5cd'
+magenta = '#ac8aac'
+cyan    = '#8aacab'
+white   = '#f0f0f0'
+
+[colors.bright]
+black   = '#262626'
+red     = '#c49ea0'
+green   = '#9ec49f'
+yellow  = '#c4c19e'
+blue    = '#a39ec4'
+magenta = '#c49ec4'
+cyan    = '#9ec3c4'
+white   = '#e7e7e7'

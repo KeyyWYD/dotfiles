@@ -1,0 +1,10 @@
+/*
+* Rofi Colors
+* Generated with Matugen
+*/
+
+* {
+  background: rgba(20, 19, 20, 0.75);
+  background-alt: #c9c5c9;
+  foreground: #e5e1e2;
+}

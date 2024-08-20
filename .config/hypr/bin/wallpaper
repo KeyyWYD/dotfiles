@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+# OH MY P-C-C-C-C-C
+
+# Swww Params
+bezier=".43,1.19,1,.4"
+fps="60"
+transition_type="wipe"
+duration="1.6"
+
+# Directories
+userDIR="$HOME/Pictures/Wallpapers"
+if [ -d "/usr/share/backgrounds" ]; then
+  systemDIR="/usr/share/backgrounds"
+else
+  systemDIR="/usr/share/wallpapers"
+fi
+# Determine the directory to use
+if [[ -n "$userDIR" && -d "$userDIR" ]]; then
+  wp_dir="$userDIR"
+elif [ -d "$systemDIR" ]; then
+  wp_dir="$systemDIR" # Fallback to system folders
+else
+  notify-send "Wallpaper Directory(s) Not Found" \
+              "Both user and system directories are empty/missing."
+  [ ! -d "$userDIR" ] && mkdir -p "$userDIR"
+  exit 0
+fi
+cache_dir="$HOME/.cache/swww"
+thumb_cache_dir="$cache_dir/thumbnails"
+tmp_wp="$cache_dir/tmp_wp"
+blurred_wp="$cache_dir/blurred.png"
+
+# Vars
+blur="15x10"
+monitor=$(hyprctl monitors | awk '/^Monitor/{name=$2} /focused: yes/{print name}')
+rofi_cmd="rofi -dmenu -i -config $HOME/.config/rofi/wallpaper.rasi -p 􀊫 "
+imgs=($(find "$wp_dir" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' \) | sort -d))
+
+# Thumbnail Settings
+max_thumbnail_size=100000   # 100MB
+thumbnail_expiry=7    # Expire after 7 days
+
+
+_genthumb() {
+  local current_size=$(du -sk "$thumb_cache_dir" | cut -f1)
+
+  if [[ "$current_size" -gt "$max_thumbnail_size" ]]; then
+    echo "Thumbnail cache size exceeds the limit. Cleaning up old thumbnails..."
+    find "$thumb_cache_dir" -type f -mtime +$thumbnail_expiry -exec rm {} \;
+  fi
+
+  [ ! -d "$thumb_cache_dir" ] && mkdir -p "$thumb_cache_dir"
+  for img in "${imgs[@]}"; do
+    local name=$(basename "$img")
+    local thumb_file="$thumb_cache_dir/${name%.*}.png"
+    if [[ ! -f "$thumb_file" ]]; then
+      notify-send -t 1400 -r 92144 "Generating thumbnails..."
+      magick "$img" -resize 5% "$thumb_file" # lowest quality thumbs
+    fi
+  done
+}
+
+_menu() {
+  for img in "${imgs[@]}"; do
+    local name=$(basename "$img")
+    local thumb="$thumb_cache_dir/${name%.*}.png"
+    if [[ "$name" == *.gif ]]; then
+      printf "%s\n" "$name"
+    else
+      # printf "%s\x00icon\x1f%s\n" "${name%.*}" "$img"
+      printf "%s\x00icon\x1f%s\n" "${name%.*}" "$thumb"
+    fi
+  done
+}
+
+_setwp() {
+  local choice=$(_menu | $rofi_cmd)
+
+  if [[ -z $choice ]]; then
+    exit 0
+  fi
+
+  local selected
+  for img in "${imgs[@]}"; do
+    if [[ "$(basename "$img")" == "$choice"* ]]; then
+      selected="$img"
+      break
+    fi
+  done
+
+  if [[ -n $selected ]]; then
+    # Apply the selected wallpaper
+    swww img -o "$monitor" "$selected" \
+      --transition-bezier "$bezier" \
+      --transition-fps "$fps" \
+      --transition-type "$transition_type" \
+      --transition-duration "$duration"
+
+    # Create a blurred version of the wallpaper (.gif=issues)
+    if [[ "${selected##*.}" != "gif" ]]; then
+      cp "$selected" "$tmp_wp"
+      magick "$tmp_wp" -resize 70% "$tmp_wp"
+
+      if [[ "$blur" != "0x0" ]]; then
+        magick "$tmp_wp" -blur "$blur" "$blurred_wp"
+      fi
+      rm -f "$tmp_wp"
+    fi
+  fi
+}
+
+swww query &> /dev/null
+if [ $? -ne 0 ] ; then
+  swww-daemon --format xrgb &
+  swww query && swww restore
+fi
+
+_genthumb
+_setwp
+apply_theme

@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+# OH MY P-C-C-C-C-C
+
+#
+# Appearance settings
+#
+# Gtk Theme
+gtk_theme="Material"
+# Mode for theme: 'light' or 'dark'
+mode="dark"
+# Scheme Options: scheme-content, scheme-expressive,
+# scheme-fidelity, scheme-fruit-salad, scheme-monochrome,
+# scheme-neutral, scheme-rainbow, scheme-tonal-spot.
+scheme="scheme-content"
+# Contrast level: -1 to 1
+contrast="0"
+
+# Vars
+monitor=$(hyprctl monitors | awk '/^Monitor/{name=$2} /focused: yes/{print name}')
+cache_file="$HOME/.cache/swww/$monitor"
+
+is_active() {
+  pgrep -x "$1" &> /dev/null
+}
+
+start() {
+  nohup "$1" &> /dev/null
+}
+
+stop() {
+  pkill -f "$1" 2> /dev/null
+}
+
+# Generate Material colors
+matugen image "$(<"$cache_file")" -m "$mode" -t "$scheme" --contrast "$contrast"
+# Gtk settings
+gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
+gsettings set org.gnome.desktop.interface color-scheme "prefer-$mode"
+
+# Restart/Refresh programs
+# progs=('foo')
+# for proc in "${progs[@]}"; do
+#   if is_active "$proc"; then
+#     stop "$proc"
+#   fi
+# done
+#
+# sleep 0.5
+
+# for proc in "${progs[@]}"; do
+#   start "$proc"
+# done
+
+# Reload waybar
+if is_active "waybar"; then
+  pkill -SIGUSR2 waybar
+else
+  start "waybar"
+fi
+
+sleep 0.1
+hyprctl reload config-only > /dev/null && killall dunst

@@ -1,0 +1,15 @@
+# Comments and blank lines are allowed.
+
+\.git
+\.gitignore
+\.gitmodules
+\.github
+.uuid
+.log
+assets
+extra
+Pictures
+scripts
+setup.sh
+^/README.*
+^/scrot.*
