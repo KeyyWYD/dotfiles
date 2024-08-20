@@ -175,15 +175,15 @@ stow --adopt .
 <div align="center">
   <table>
    <tr><td>
-    <img src="https://raw.githubusercontent.com/KeyyWYD/arch-stuffs/main/assets/img/lock.png"/></td></tr>
+    <img src="https://raw.githubusercontent.com/KeyyWYD/.dotfiles/main/assets/img/lock.png"/></td></tr>
   </table><table>
    <tr><td>
-    <img src="https://raw.githubusercontent.com/KeyyWYD/arch-stuffs/main/assets/img/home.png"/></td></tr>
+    <img src="https://raw.githubusercontent.com/KeyyWYD/.dotfiles/main/assets/img/home.png"/></td></tr>
   </table><table>
    <tr><td>
-    <img src="https://raw.githubusercontent.com/KeyyWYD/arch-stuffs/main/assets/img/rofi-1.png"/></td><td>
-    <img src="https://raw.githubusercontent.com/KeyyWYD/arch-stuffs/main/assets/img/rofi-2.png"/></td><td>
-    <img src="https://raw.githubusercontent.com/KeyyWYD/arch-stuffs/main/assets/img/rofi-3.png"/></td></tr>
+    <img src="https://raw.githubusercontent.com/KeyyWYD/.dotfiles/main/assets/img/rofi-1.png"/></td><td>
+    <img src="https://raw.githubusercontent.com/KeyyWYD/.dotfiles/main/assets/img/rofi-2.png"/></td><td>
+    <img src="https://raw.githubusercontent.com/KeyyWYD/.dotfiles/main/assets/img/rofi-3.png"/></td></tr>
   </table>
 </div>
 
