@@ -7,7 +7,7 @@ icon_dir="$HOME/.config/dunst/assets"
 
 # Vars
 _step="5"
-_timeout="400"
+_timeout="800"
 
 # Check for stuff
 _commands() {

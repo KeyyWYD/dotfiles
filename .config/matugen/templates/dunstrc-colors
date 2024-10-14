@@ -8,10 +8,10 @@ notification_limit                  = 0
 
 frame_width                         = 0
 width                               = 270
-height                              = 140
+height                              = 130
 origin                              = top-right
 offset                              = 8x8
-corner_radius                       = 8
+corner_radius                       = 10
 
 min_icon_size                       = 48
 max_icon_size                       = 64
@@ -38,7 +38,7 @@ title                               = "Dunst"
 class                               = "dunst"
 timeout                             = 5
 
-background                          = "{{colors.background.default.hex}}B3"
+background                          = "{{colors.background.default.hex}}59"
 foreground                          = "{{colors.on_surface.default.hex}}"
 highlight                           = "{{colors.primary_container.default.hex}}"
 frame_color                         = "#fff"

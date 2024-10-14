@@ -13,7 +13,7 @@ mute=false
 # Set to true to mute all sounds.
 muteScreenshots=false
 # Set to true to mute screenshot sounds.
-muteVolume=false
+muteVolume=true
 # Set to true to mute volume change sounds.
 mutePower=false
 # Set to true to mute battery and power sounds.

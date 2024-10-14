@@ -1,86 +1,86 @@
 // RAHHHHHHHHHH
 
 configuration {
-    modi:                       "drun";
-    show-icons:                 false;
-    drun-display-format:        "{name}";
-    hover-select:               true;
-    me-select-entry:            "MouseSecondary";
-    me-accept-entry:            "MousePrimary";
+  modi:                       "drun";
+  show-icons:                 false;
+  drun-display-format:        "{name}";
+  hover-select:               true;
+  me-select-entry:            "MouseSecondary";
+  me-accept-entry:            "MousePrimary";
 }
 
-@theme "colors.rasi"
+@theme "~/.cache/matugen/colors.rasi"
 
 * {
-    font:                        "SF Pro Text Medium 9";
+  font:                        "SF Pro Display Medium 9";
 
-    border: 0;
-    margin: 0;
-    padding: 0;
-    spacing: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
 }
 
 window {
-    enabled:                     true;
-    transparency:                "real";
-    location:                    north west;
-    anchor:                      center;
-    width:                       18%;
-    x-offset:                    8px;
-    y-offset:                    8px;
-    border-radius:               8px;
-    background-color:            @background;
+  enabled:                     true;
+  transparency:                "real";
+  location:                    north west;
+  anchor:                      center;
+  width:                       16.5em;
+  x-offset:                    8px;
+  y-offset:                    8px;
+  border-radius:               0.6em;
+  background-color:            @background;
 }
 
 mainbox {
-    enabled:                     true;
-    background-color:            transparent;
-    children:                    [ "listview" ];
+  enabled:                     true;
+  background-color:            transparent;
+  children:                    [ "listview" ];
 }
 
 listview {
-    enabled:                     true;
-    columns:                     1;
-    lines:                       7;
-    cycle:                       true;
-    dynamic:                     true;
-    scrollbar:                   false;
-    fixed-height:                true;
-    spacing:                     5px;
-    background-color:            transparent;
-    text-color:                  @foreground;
-    cursor:                      pointer;
+  enabled:                     true;
+  columns:                     1;
+  lines:                       7;
+  cycle:                       true;
+  dynamic:                     true;
+  scrollbar:                   false;
+  fixed-height:                true;
+  spacing:                     5px;
+  background-color:            transparent;
+  text-color:                  @foreground;
+  cursor:                      pointer;
 }
 
 element {
-    enabled:                     true;
-    spacing:                     10px;
-    padding:                     8px 12px;
-    background-color:            transparent;
-    text-color:                  @foreground;
-    cursor:                      pointer;
+  enabled:                     true;
+  spacing:                     10px;
+  padding:                     8px 12px;
+  background-color:            transparent;
+  text-color:                  @foreground;
+  cursor:                      pointer;
 }
 
 element normal.normal {
-    background-color:            transparent;
-    text-color:                  @foreground;
+  background-color:            transparent;
+  text-color:                  @foreground;
 }
 
 element selected.normal {
-    background-color:            white / 5%;
-    text-color:                  @foreground;
+  background-color:            @active;
+  text-color:                  @foreground;
 }
 
 element-icon {
-    background-color:            transparent;
-    text-color:                  inherit;
-    size:                        5%;
+  background-color:            transparent;
+  text-color:                  inherit;
+  size:                        5%;
 }
 
 element-text {
-    background-color:            transparent;
-    text-color:                  inherit;
-    highlight:                   inherit;
-    cursor:                      inherit;
-    vertical-align:              0.5;
+  background-color:            transparent;
+  text-color:                  inherit;
+  highlight:                   inherit;
+  cursor:                      inherit;
+  vertical-align:              0.5;
 }

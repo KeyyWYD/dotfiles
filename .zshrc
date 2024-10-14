@@ -14,7 +14,7 @@ limit coredumpsize 0
 
 # Variables
 ZSH=$HOME/.zsh
-EDITOR=nano
+EDITOR=nvim
 
 if command -v yay &> /dev/null; then
   aurhelper=yay
@@ -60,7 +60,8 @@ bindkey '^[[3~' delete-char
 # fastfetch
 # catnap
 
-source <(fzf --zsh)
+# source <(fzf --zsh)
+eval "$(fzf --zsh)"
 eval $(thefuck --alias)
 eval $(thefuck --alias tf)
 eval "$(zoxide init zsh)"

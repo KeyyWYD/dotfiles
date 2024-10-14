@@ -2,7 +2,7 @@
 {
   "layer": "top",
   "position": "top",
-  "margin": "5 5 0 5",
+  // "margin": "5 5 0 5",
   "modules-left": [ "group/left" ],
   "modules-center":[ "group/center" ],
   "modules-right": [ "group/right" ],
@@ -12,10 +12,10 @@
     "modules": [ "custom/menu", "hyprland/workspaces", "group/telementry" ] },
   "group/center": {
     "orientation": "inherit",
-    "modules": [ "clock" ] },
+    "modules": [ "hyprland/window" ] },
   "group/right": {
     "orientation": "inherit",
-    "modules": [ "custom/player", "group/ctl" ] },
+    "modules": [ "tray", "hyprland/language", "group/ctl" ] },
 
   // Modules
   "group/telementry": {
@@ -38,11 +38,10 @@
   "group/ctl": {
     "orientation": "horizontal",
     "modules": [
-      "hyprland/language",
-      "custom/separator#space",
       "network",
       "wireplumber",
-      "custom/battery"
+      "custom/battery",
+      "clock"
     ]
   },
 
@@ -62,22 +61,21 @@
   },
   "hyprland/window": {
     "format": "{initialTitle}",
+    "max-length": 80,
+    "separate-outputs": false,
     "rewrite": {
-      "": "Home",
-      "kitty": "Terminal",
-      "alacritty": "Terminal",
-      "(.*) Dolphin": "Files",
-      "Mozilla Firefox": "Firefox",
-      "Firefox (.*)": "Firefox",
+      "": "   Empty",
+      "kitty|alacritty": "   Terminal",
+      "(.*) Dolphin": "  Files",
+      "Mozilla Firefox|Firefox (.*)": "󰈹  Firefox",
       "chat.openai.com_/": "ChatGPT 3.5",
-      "web.whatsapp.com_/": "Whatsapp Web",
-      "neofetch": "About PC",
-      "fastfetch": "About PC",
+      "web.whatsapp.com_/": "  Whatsapp Web",
+      "neofetch|fastfetch": "   About PC",
       "Enter name of file to save to…": "Save File",
       "Beeper (.*)": "Beeper",
       "(.*) Thorium": "Thorium",
-      "Spotify Free": "Spotify",
-      "Spotify Premium": "Spotify"
+      "Spotify (.*)": "󰓇  Spotify",
+      "Steam": "󰓓  Steam"
     },
     "tooltip": false
   },
@@ -102,8 +100,12 @@
     "format": "􀇬 {temperatureC}°C",
     "tooltip": false
   },
+  // "clock": {
+  //   "format": "􀉉 {:%a %h.%d  /  􀐫 %I:%M %p}",
+  //   "tooltip": false
+  // },
   "clock": {
-    "format": "􀉉 {:%a %h.%d  /  􀐫 %I:%M %p}",
+    "format": "{:%I:%M}",
     "tooltip": false
   },
   "tray": {
@@ -130,7 +132,6 @@
     "smooth-scrolling-threshold": 5.0,
     "tooltip": false
   },
-
   "wireplumber": {
     "format": "{icon}",
     "format-muted": "􀊣 ",

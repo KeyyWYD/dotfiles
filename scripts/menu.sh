@@ -98,9 +98,20 @@ _opt4() {
   systemctl --user --now enable pipewire pipewire-pulse pipewire-pulse.socket wireplumber
   systemctl enable thermald ly
   xdg-user-dirs-update
+  xdg-user-dirs-gtk-update
 
-  # Copy wallpapers
+  # Wallpaper
   cp -r "$HOME"/.dotfiles/Wallpapers "$HOME"/Pictures
+
+  swww query &> /dev/null
+  if [ $? -ne 0 ] ; then
+    swww-daemon --format xrgb &
+    swww query && swww restore
+  fi
+
+  swww img "$HOME"/Pictures/Wallpapers/sample.png
+
+  matugen image "$HOME"/Pictures/Wallpapers/sample.png
 
   # Finalizing
   rm -rf "$HOME/tmp"

@@ -22,14 +22,15 @@ _notify () {
               -t "$timeout" -i "$icon"
 }
 
-_recording() {
+_record() {
   local savedir="$HOME/Pictures/Recordings"
   [ ! -d "$savedir" ] && mkdir -p "$savedir"
   local file="$savedir/recording_${now}.mp4"
 
-  # Do Stuff
+  # Do Stuff Here
+  wf-recorder -f ${file} -g "$(slurp -d)" -x yuv420p
 
-  _notify "--" "Recording" "${savedir/#$HOME\/}" "1200"
+  _notify "" "Recording" "${savedir/#$HOME\/}" "1200"
 }
 
 _screenshot() {
@@ -38,17 +39,24 @@ _screenshot() {
   [ ! -d "$savedir" ] && mkdir -p "$savedir"
   local file="$savedir/screenshot_${now}.png"
 
-  if [ "$mode" == "full" ]; then
-    wayshot -f "$file"
-  elif [ "$mode" == "region" ]; then
-    local size="$(slurp -b#00000066 -w 0)"
-    wayshot -f "$file" -s "${size}"
+  if ! command -v slurp &> /dev/null || ! command -v wayshot &> /dev/null; then
+    exit 1
   fi
 
-  if wl-copy --type image/png < "$file"; then
-    _notify "$file" "Screenshot" "${savedir/#$HOME\/}" "1200"
-    sounds --screenshot
+  if [ "$mode" == "full" ]; then
+    wayshot -f ${file}
+  elif [ "$mode" == "region" ]; then
+    local size="$(slurp -b "#00000066" -c "#FFFFFFaa" -w 0)"
+    if [ -z "$size" ]; then
+      exit 1
+    fi
+
+    wayshot -f ${file} -s "${size}"
   fi
+
+  wl-copy --type image/png < ${file}
+  _notify "$file" "Screenshot" "${savedir/#$HOME\/}" "1200"
+  sounds --screenshot
 }
 
 case $1 in

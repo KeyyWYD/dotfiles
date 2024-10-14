@@ -8,10 +8,10 @@ notification_limit                  = 0
 
 frame_width                         = 0
 width                               = 270
-height                              = 140
+height                              = 130
 origin                              = top-right
 offset                              = 8x8
-corner_radius                       = 8
+corner_radius                       = 10
 
 min_icon_size                       = 48
 max_icon_size                       = 64
@@ -28,7 +28,7 @@ padding                             = 10
 horizontal_padding                  = 8
 text_icon_padding                   = 16
 gap_size                            = 6
-separator_color                     = "#929095"
+separator_color                     = "#968e98"
 
 sort                                = update
 format                              = "<b>%s</b>\n%b"
@@ -38,7 +38,7 @@ title                               = "Dunst"
 class                               = "dunst"
 timeout                             = 5
 
-background                          = "#141314B3"
-foreground                          = "#e5e1e2"
-highlight                           = "#16151b"
+background                          = "#16121759"
+foreground                          = "#e8e0e8"
+highlight                           = "#583a6f"
 frame_color                         = "#fff"
