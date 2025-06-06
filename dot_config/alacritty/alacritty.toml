@@ -1,0 +1,47 @@
+[terminal.shell]
+program = "/bin/nu"
+
+[cursor]
+style = { shape = "Beam", blinking = "Always" }
+blink_interval = 500
+unfocused_hollow = true
+
+[font]
+size = 11
+
+[font.bold]
+family = "RobotoMono Nerd Font Md"
+style = "Bold"
+
+[font.bold_italic]
+family = "RobotoMono Nerd Font Md"
+style = "Bold Italic"
+
+[font.italic]
+family = "RobotoMono Nerd Font Md"
+style = "Italic"
+
+[font.normal]
+family = "RobotoMono Nerd Font Md"
+style = "Regular"
+
+[scrolling]
+history = 100000
+multiplier = 4
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+dynamic_title = true
+# opacity = 0.8
+class = { general = "Alacritty", instance = "Alacritty" }
+dimensions = { columns = 100, lines = 80 }
+padding = { x = 10, y = 8 }
+blur = true
+
+[general]
+import = ["~/.config/ags/services/.cache/material/colors-alacritty.toml"]
+live_config_reload = true
+
+[terminal]

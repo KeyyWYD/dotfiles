@@ -1,0 +1,15 @@
+#!/bin/sh
+{{ if eq .chezmoi.osRelease.id "arch" }}
+
+if ! command -v yay >/dev/null 2>&1; then
+  echo "Installing yay..."
+  sudo pacman -S --noconfirm git
+  git clone https://aur.archlinux.org/yay.git /tmp/yay
+  (cd /tmp/yay && makepkg -si --noconfirm)
+  rm -rf /tmp/yay
+fi
+
+xargs -a ./dependencies.txt yay -S --needed --noconfirm
+
+{{ end }}
+
