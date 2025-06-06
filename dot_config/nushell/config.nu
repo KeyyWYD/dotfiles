@@ -90,11 +90,6 @@ def arch-mirrors [] {
     yay -Syyu --noconfirm
 }
 
-def test [] {
-    alacritty
-    better-control
-}
-
 alias i = yay -S
 alias r = yay -Rns
 alias c = yay -Scc

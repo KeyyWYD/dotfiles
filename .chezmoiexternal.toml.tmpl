@@ -1,7 +1,15 @@
+{{ $rate_mirrors_version := (gitHubLatestRelease "westandskif/rate-mirrors").TagName -}}
+[".local/bin/rate-mirrors"]
+type = "archive-file"
+url = "https://github.com/westandskif/rate-mirrors/releases/download/{{ $rate_mirrors_version }}/rate-mirrors-{{ $rate_mirrors_version }}-x86_64-unknown-linux-musl.tar.gz"
+path = "rate-mirrors-{{ $rate_mirrors_version }}-x86_64-unknown-linux-musl/rate_mirrors"
+executable = true
+
 [".local/share/fonts/TTF/NotoColorEmoji.ttf"]
 type = "file"
 url = "https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf"
 
+{{ $bibata_version := (gitHubLatestRelease "ful1e5/Bibata_Cursor").TagName -}}
 [".local/share/icons"]
 type = "archive"
-url = "https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.7/Bibata-Modern-Classic.tar.xz"
+url = "https://github.com/ful1e5/Bibata_Cursor/releases/download/{{ $bibata_version }}/Bibata-Modern-Classic.tar.xz"
