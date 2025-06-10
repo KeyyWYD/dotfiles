@@ -41,33 +41,12 @@ if ($env.once? | is-empty) {
     $env.once = "true"
 }
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-# Shell integrations
-
-# neofetch
-# fastfetch
-# pfetch
-# catnap
-blocks.nu
-fortune -s
-
-source ~/.config/nushell/.zoxide.nu
-#source ~/.config/nushell/.oh-my-posh.nu
-source ~/.config/nushell/.starship.nu
-
-overlay use  ~/.config/nushell/git/git-aliases.nu
-source ~/.config/nushell/git/git-completions.nu
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 ### ALIASES
 alias cls = clear
 alias x = exit
 
 # User Directories
 alias home = cd $env.HOME
-alias dot = cd $"($env.HOME)/.dotfiles"
 alias cfg = cd $"($env.HOME)/.config"
 alias dx = cd $"($env.HOME)/Desktop"
 alias docs = cd $"($env.HOME)/Documents"
@@ -76,7 +55,7 @@ alias dev = cd $"($env.HOME)/Projects"
 
 # File Operations and Navigation
 def ll [] {ls -al | sort-by size | select name type size mode modified}
-def lsd [] {ls | where type == "dir" | table}
+def lsd [] {ls -a | where type == "dir"}
 alias cat = bat --color=always --paging=never --wrap=never
 alias find = e $'(fzf -m --preview="bat --color=always {}")'
 alias cd = z
@@ -127,3 +106,24 @@ alias czr = chezmoi re-add
 alias czs = chezmoi status
 alias czi = chezmoi init
 alias czu = chezmoi update
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Shell integrations
+
+# neofetch
+# fastfetch
+# pfetch
+# catnap
+blocks.nu
+fortune -s
+
+source ~/.config/nushell/.zoxide.nu
+#source ~/.config/nushell/.oh-my-posh.nu
+source ~/.config/nushell/.starship.nu
+
+# Git
+overlay use  ~/.config/nushell/git/git-aliases.nu
+source ~/.config/nushell/git/git-completions.nu
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

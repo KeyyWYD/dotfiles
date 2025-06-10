@@ -1,0 +1,73 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Prompt
+PS1='[\u@\H \w]\n\\$ '
+
+### ALIASES
+alias reload='. $HOME/.bashrc'
+alias open='xdg-open'
+alias cls='clear'
+alias x='exit'
+alias cd='z'
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+
+# User Directories
+alias home='cd $HOME'
+alias cfg='cd $HOME/.config'
+alias dx='cd $HOME/Desktop'
+alias docs='cd $HOME/Documents'
+alias dl='cd $HOME/Downloads'
+alias dev='cd $HOME/Projects'
+
+alias ll='ls -lha --color=auto'
+alias ls='ls --color=auto'
+alias cat='bat --color=always --paging=never --wrap=never'
+alias grep='grep --color=auto'
+
+# Network and System Utilities
+alias duh='du -sh * | sort -rh'
+alias envlist='printenv | sort'
+alias free='free -h'
+alias hosts='sudo $EDITOR /etc/hosts'
+alias myip='curl ipinfo.io/ip'
+alias jctl='journalctl -p 3 -xb'
+alias qdisk='watch -n 1 df -h'
+alias qnet='ping -c 1 example.com'
+
+# Git
+alias g='git'
+alias ga='git add'
+alias gaa='git add --all'
+alias gbl='git blame -w'
+alias gc='git commit --verbose'
+alias gcl='git clone --recurse-submodules'
+alias gcmsg='git commit --message'
+alias gd='git diff'
+alias gdca='git diff --cached'
+alias gdct='git describe --tags (git rev-list --tags --max-count=1)'
+alias gdcw='git diff --cached --word-diff'
+
+# Chezmoi
+alias cz='chezmoi'
+alias cza='chezmoi apply -v --exclude scripts'
+alias czcd='chezmoi cd'
+alias czd='chezmoi diff'
+alias cze='chezmoi edit'
+alias czg='chezmoi git'
+alias czi='chezmoi init'
+alias czr='chezmoi re-add'
+alias czs='chezmoi status'
+alias czu='chezmoi update'
+
+### Shell Integrations
+eval "$(zoxide init bash)"
